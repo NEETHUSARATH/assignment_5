@@ -3,7 +3,7 @@ var Bodyparser = require("body-parser");
 var Mongoose = require("mongoose");
 var cors = require("cors");
 Mongoose.set('strictQuery', false);
-const EmployeeModel = require("./src/model/employee");
+const EmployeeModel = require("./model/employee");
 
 var app = new express();
 app.use(Bodyparser.json());
