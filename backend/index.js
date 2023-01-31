@@ -3,19 +3,19 @@ const Bodyparser=require('body-parser');
 const mongoose=require('mongoose');
 const cors=require('cors');
 const path=require('path');
-const { employeeModel } = require('./src/model/employee');
+const { employeeModel } = require('./model/employee');
 var app=new express();
-app.use(express.static(path.join(__dirname+'/dist/FrontEnd')));
+app.use(express.static(path.join(__dirname+'/frontend')));
 app.use(Bodyparser.json());
 app.use(Bodyparser.urlencoded({extended:false}));
 
-// Task2: create mongoDB connection 
+
 
 mongoose.connect('mongodb+srv://NeeThuMongodb:16263646@cluster0.rviognq.mongodb.net/EmployeeDB?retryWrites=true&w=majority',{
     useNewUrlParser: true
 });
 
-//Task 2 : write api with error handling and appropriate api mentioned in the TODO below
+
 
 app.post('/api/employeelist',(req,res)=>{
     var data=req.body;
@@ -34,7 +34,7 @@ app.post('/api/employeelist',(req,res)=>{
 
 
 
-//TODO: get data from db  using api '/api/employeelist'
+
 
 app.get('/api/employeelist',(req,res)=>{
     employeeModel.find((err,data)=>{
@@ -49,7 +49,7 @@ app.get('/api/employeelist',(req,res)=>{
 })
 
 
-//TODO: get single data from db  using api '/api/employeelist/:id'
+
 
 app.get('/api/employeelist/:id',(req,res)=>{
     var id=req.params.id;
@@ -63,8 +63,7 @@ app.get('/api/employeelist/:id',(req,res)=>{
 });   
     
 
-//TODO: send data from db using api '/api/employeelist'
-//Request body format:{name:'',location:'',position:'',salary:''}
+
 
 app.post('/api/employeelist',(req,res)=>{
     var data=req.body;
@@ -80,7 +79,7 @@ app.post('/api/employeelist',(req,res)=>{
     );
 })
 
-//TODO: delete a employee data from db by using api '/api/employeelist/:id'
+
 
 app.delete('/api/employeelist/:id',(req,res)=>{
    var id=req.params.id;
@@ -95,8 +94,7 @@ app.delete('/api/employeelist/:id',(req,res)=>{
     )
 })
 
-//TODO: Update  a employee data from db by using api '/api/employeelist'
-//Request body format:{name:'',location:'',position:'',salary:''}
+
 
 app.put('/api/employeelist',(req,res)=>{
     var salary=req.body.salary;
@@ -114,10 +112,10 @@ app.put('/api/employeelist',(req,res)=>{
 )}
 ) 
 
-//! dont delete this code. it connects the front end file.
+
 
 app.get('/*', function (req, res) {
-    res.sendFile(path.join(__dirname + '/dist/Frontend/index.html'));
+    res.sendFile(path.join(__dirname + '/frontend/public/index.html'));
 });
 
 
