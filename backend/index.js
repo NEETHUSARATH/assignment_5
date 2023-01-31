@@ -3,9 +3,9 @@ const Bodyparser=require('body-parser');
 const mongoose=require('mongoose');
 const cors=require('cors');
 const path=require('path');
-const { employeeModel } = require('./model/employee');
+const { employeeModel } = require('./src/model/employee');
 var app=new express();
-app.use(express.static(path.join(__dirname+'/frontend')));
+app.use(express.static(path.join(__dirname+'/build')));
 app.use(Bodyparser.json());
 app.use(Bodyparser.urlencoded({extended:false}));
 
@@ -115,7 +115,7 @@ app.put('/api/employeelist',(req,res)=>{
 
 
 app.get('/*', function (req, res) {
-    res.sendFile(path.join(__dirname + '/frontend/public/index.html'));
+    res.sendFile(path.join(__dirname + '/build/index.html'));
 });
 
 
