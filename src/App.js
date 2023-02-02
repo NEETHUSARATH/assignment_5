@@ -6,6 +6,7 @@ import Navbar from './Components/Navbar';
 import AdminDashbrd from './Components/AdminDashbrd';
 import UserDashbrd from './Components/UserDashbrd';
 import Navbar2 from './Components/Navbar2';
+import EmployeeForm from './Components/EmployeeForm';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path='/navbar2' exact element={<Navbar2/>}/>
         <Route path='/admin' exact element={<AdminDashbrd/>}/>
         <Route path='/user' exact element={<UserDashbrd/>}/>
+        <Route path='/form' exact element={<EmployeeForm/>}/>
 
       </Routes>
       </BrowserRouter>
