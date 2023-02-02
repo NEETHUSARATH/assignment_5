@@ -12,7 +12,7 @@ const AdminDashbrd = () => {
         },[]
     )
     const getData = ()=>{
-        axios.get('ttps://jsonplaceholder.typicode.com/users')
+        axios.get('https://jsonplaceholder.typicode.com/users')
         .then(
             (response)=>{
                 setemployeeData(response.data);
@@ -36,29 +36,27 @@ const AdminDashbrd = () => {
                         <tr>
                             <th scope="col">ID</th>
                             <th scope="col">NAME</th>
-                            <th scope="col">EMAIL</th>
+                            <th scope="col">DESIGNATION</th>
                             <th scope='col'>Edit/Delete</th>
-                             </tr>
-                         </thead>
-                         <tbody>
-                             {employeeData.map(
-                             (value,index)=>{
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {employeeData.map(
+                            (value,index)=>{
                              return <tr>
-                                 <td>{value.id}</td>
-                                 <td >{value.name}</td>
-                                 <td >{value.email}</td>
-                                 <button className="btn" style={{backgroundColor: "#5D6D7E ", marginRight:"3px",marginTop:"3px"}}>Edit</button>
-                                 <button className="btn" style={{backgroundColor: "#5D6D7E ", marginLeft:"3px",marginBottom:"3px"}}>Delete</button>
-
-                             </tr> 
-                             }
-                             )}
-                         </tbody>
-                     </table>
-                </div>
+                                <td>{value.id}</td>
+                                <td >{value.name}</td>
+                                <td >{value.designation}</td>
+                                <button className="btn" style={{backgroundColor: "#5D6D7E ", marginRight:"3px",marginTop:"3px"}}>Edit</button>
+                                <button className="btn" style={{backgroundColor: "#5D6D7E ", marginLeft:"3px",marginBottom:"3px"}}>Delete</button>
+                            </tr> 
+                            }
+                        )}
+                    </tbody>
+                </table>
             </div>
+        </div>
       </div>
-
     </div>
   )
 }

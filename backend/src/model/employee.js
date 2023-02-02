@@ -4,8 +4,7 @@ let Mongoose = require("mongoose");
 const employeeSchema = Mongoose.Schema(
     {
         name: String,
-        location: String,
-        position:String,
+        designation:String,
         salary:Number
     }
 );
