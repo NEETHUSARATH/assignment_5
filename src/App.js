@@ -1,20 +1,24 @@
 import logo from './logo.svg';
 import './App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Home from './Components/Home';
 import Login from './Components/Login';
 import Navbar from './Components/Navbar';
-import Signup from './Components/Signup';
+import AdminDashbrd from './Components/AdminDashbrd';
+import UserDashbrd from './Components/UserDashbrd';
+import Navbar2 from './Components/Navbar2';
 
 function App() {
   return (
     <div>
       <BrowserRouter>
       <Routes>
-        <Route path='/home' exact element={<Home/>}/>
-        <Route path='/login' exact element={<Login/>}/>
+       
+        <Route path='/' exact element={<Login/>}/>
         <Route path='/navbar' exact element={<Navbar/>}/>
-        <Route path='/signup' exact element={<Signup/>}/>
+        <Route path='/navbar2' exact element={<Navbar2/>}/>
+        <Route path='/admin' exact element={<AdminDashbrd/>}/>
+        <Route path='/user' exact element={<UserDashbrd/>}/>
+
       </Routes>
       </BrowserRouter>
     </div>
