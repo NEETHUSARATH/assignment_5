@@ -10,7 +10,7 @@ const Signup = () => {
     const [secretKey, setSecretKey] = useState("");
   
     const handleSubmit = (e) => {
-      if (userType == "Admin" && secretKey != "AdarshT") {
+      if (userType == "Admin" && secretKey != "NeeThu") {
         e.preventDefault();
         alert("Invalid Admin");
       } else {
