@@ -37,7 +37,7 @@ app.post("/login", async (req, res) => {
         return res.json({ error: "error" });
       }
     }
-    res.json({ status: "error", error: "InvAlid Password" });
+    res.json({ status: "error", error: "Invalid Password" });
   });
   
   app.post("/userData", async (req, res) => {

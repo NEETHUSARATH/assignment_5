@@ -36,18 +36,20 @@ const UserDashbrd = () => {
             <table class="table">
                     <thead>
                         <tr>
-                            <th scope="col">ID</th>
+                         
                             <th scope="col">NAME</th>
                             <th scope="col">DESIGNATION</th>
+                            <th scope="col">PLACE</th>
                         </tr>
                     </thead>
                     <tbody>
                         {employeeData.map(
                             (value,index)=>{
                              return <tr>
-                                <td>{value.id}</td>
+                               
                                 <td >{value.name}</td>
                                 <td >{value.designation}</td>
+                                <td >{value.place}</td>
                             </tr> 
                             }
                         )}
@@ -61,4 +63,4 @@ const UserDashbrd = () => {
   )
 }
 
-export default UserDashbrd
+export default UserDashbrd({ userData })
