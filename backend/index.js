@@ -18,7 +18,7 @@ mongoose.connect('mongodb+srv://NeeThuMongodb:16263646@cluster0.rviognq.mongodb.
 //const JWT_SECRET ="";
 
 //signup
-const User = mongoose.model("UserInfo");
+const User = mongoose.model("userModel");
 app.post("/signup", async (req, res) => {
   const { fname, lname, email, password, userType } = req.body;
 
