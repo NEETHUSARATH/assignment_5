@@ -1,7 +1,4 @@
 import { getDefaultNormalizer } from '@testing-library/react';
-import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
-import CreateIcon from '@mui/icons-material/Create';
-import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import axios from 'axios';
 import React, { useEffect, useState,useContext } from 'react'
 import Navbar from './Navbar'
@@ -138,9 +135,9 @@ const AdminDashbrd = () => {
                                                 <td>{element.place}</td>
                                                 <td>{element.salary}</td>
                                                 <td className="d-flex justify-content-between">
-                                                    <NavLink to={`view/${element._id}`}> <button className="btn btn-success"><RemoveRedEyeIcon /></button></NavLink>
-                                                    <NavLink to={`edit/${element._id}`}>  <button className="btn btn-primary"><CreateIcon /></button></NavLink>
-                                                    <button className="btn btn-danger" onClick={() => deleteuser(element._id)}><DeleteOutlineIcon /></button>
+                                                    <NavLink to={`view/`}> <button className="btn btn-success">View</button></NavLink>
+                                                    <NavLink to={`form/`}>  <button className="btn btn-primary">Add</button></NavLink>
+                                                    <button className="btn btn-danger" onClick={() => deleteuser(element._id)}>Delete</button>
                                                 </td>
                                             </tr>
                                         </>
@@ -157,4 +154,4 @@ const AdminDashbrd = () => {
     )
 }
 
-export default AdminDashbrd({ userData })
+export default AdminDashbrd

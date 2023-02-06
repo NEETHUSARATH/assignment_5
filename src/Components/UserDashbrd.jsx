@@ -63,4 +63,4 @@ const UserDashbrd = () => {
   )
 }
 
-export default UserDashbrd({ userData })
+export default UserDashbrd
