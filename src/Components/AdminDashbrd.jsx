@@ -3,7 +3,7 @@ import axios from 'axios';
 import React, { useEffect, useState,useContext } from 'react'
 import Navbar from './Navbar'
 import { NavLink } from 'react-router-dom';
-import { adddata,deldata,updatedata} from './context/context';
+import { adddata,deldata} from './context/context';
 
   
 
@@ -14,9 +14,9 @@ const AdminDashbrd = () => {
     }, []);
   
     const getAllUser = () => {
-      fetch("http://localhost:3005/getAllUser", {
+        axios.get('http://localhost:3005/getAlluser'), {
         method: "GET",
-      })
+      }
         .then((res) => res.json())
         .then((data) => {
           console.log(data, "userData");
@@ -28,8 +28,6 @@ const AdminDashbrd = () => {
     console.log(getuserdata);
 
     const { userdata, setUserdata } = useContext(adddata);
-
-    const {updata, setUPdata} = useContext(updatedata);
 
     const {dltdata, setDLTdata} = useContext(deldata);
 
@@ -57,7 +55,7 @@ const AdminDashbrd = () => {
     
     const deleteuser = async (id) => {
 
-        const res2 =  axios.get(`http://localhost:3005/api/employeelist${id}`)
+        const res2 =  axios.get('http://localhost:3005/api/employeelist')
 
         const deletedata = await res2.json();
         console.log(deletedata);
@@ -85,16 +83,7 @@ const AdminDashbrd = () => {
                         </div>
                     </> : ""
             }
-            {
-                updata ?
-                    <>
-                        <div class="alert alert-success alert-dismissible fade show" role="alert">
-                            <strong>{updata.name}</strong>  updated succesfully!
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
-                    </> : ""
-            }
-
+           
             {
                 dltdata ?
                     <>
@@ -135,8 +124,8 @@ const AdminDashbrd = () => {
                                                 <td>{element.place}</td>
                                                 <td>{element.salary}</td>
                                                 <td className="d-flex justify-content-between">
-                                                    <NavLink to={`view/`}> <button className="btn btn-success">View</button></NavLink>
-                                                    <NavLink to={`form/`}>  <button className="btn btn-primary">Add</button></NavLink>
+                                                    <NavLink to="/view"> <button className="btn btn-success">View</button></NavLink>
+                                                    <NavLink to="/form">  <button className="btn btn-primary">Add</button></NavLink>
                                                     <button className="btn btn-danger" onClick={() => deleteuser(element._id)}>Delete</button>
                                                 </td>
                                             </tr>

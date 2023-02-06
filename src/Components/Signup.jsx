@@ -17,22 +17,7 @@ const Signup = () => {
         e.preventDefault();
   
         console.log(fname, lname, email, password);
-        fetch("http://localhost:5000/register", {
-          method: "POST",
-          crossDomain: true,
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-            "Access-Control-Allow-Origin": "*",
-          },
-          body: JSON.stringify({
-            fname,
-            email,
-            lname,
-            password,
-            userType,
-          }),
-        })
+        axios.get('http://localhost:3005/api/signup')
           .then((res) => res.json())
           .then((data) => {
             console.log(data, "userRegister");

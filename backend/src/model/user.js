@@ -3,9 +3,13 @@ let Mongoose = require("mongoose");
 
 const userSchema = Mongoose.Schema(
     {
-        
+        fname:String,
+        lname:String,
         email: String,
-        password:String
+        password:String,
+        userType:String
+        
+        
        
     }
 );

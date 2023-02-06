@@ -9,18 +9,7 @@ const UserDetails = () => {
     const [admin, setAdmin] = useState(false);
 
   useEffect(() => {
-    fetch("http://localhost:3005/userData", {
-      method: "POST",
-      crossDomain: true,
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        "Access-Control-Allow-Origin": "*",
-      },
-      body: JSON.stringify({
-        token: window.localStorage.getItem("token"),
-      }),
-    })
+    axios.get('http://localhost:3005/api/userData')
       .then((res) => res.json())
       .then((data) => {
         console.log(data, "userData");

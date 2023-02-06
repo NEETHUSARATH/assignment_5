@@ -15,8 +15,32 @@ app.use(Bodyparser.urlencoded({extended:false}));
 mongoose.connect('mongodb+srv://NeeThuMongodb:16263646@cluster0.rviognq.mongodb.net/EmployeeDB?retryWrites=true&w=majority',{
     useNewUrlParser: true
 });
+//const JWT_SECRET ="";
 
+//signup
 const User = mongoose.model("UserInfo");
+app.post("/signup", async (req, res) => {
+  const { fname, lname, email, password, userType } = req.body;
+
+  const encryptedPassword = await bcrypt.hash(password, 10);
+  try {
+    const oldUser = await User.findOne({ email });
+
+    if (oldUser) {
+      return res.json({ error: "User Exists" });
+    }
+    await User.create({
+      fname,
+      lname,
+      email,
+      password: encryptedPassword,
+      userType,
+    });
+    res.send({ status: "ok" });
+  } catch (error) {
+    res.send({ status: "error" });
+  }
+});
 
 //login
 app.post("/login", async (req, res) => {
