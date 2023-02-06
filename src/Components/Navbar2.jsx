@@ -14,6 +14,10 @@ const Navbar2 = () => {
                    <li class="nav-item">
                     <a class="nav-link" href="/user">Home</a>
                    </li>
+                   <li class="nav-item">
+                    <a class="nav-link" href="/login">Logout</a>
+                   </li>
+                   
                    
                </ul>
            </div>

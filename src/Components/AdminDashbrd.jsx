@@ -8,7 +8,24 @@ import Navbar from './Navbar'
 import { NavLink } from 'react-router-dom';
 import { adddata,deldata,updatedata} from './context/context';
 
+  
+
 const AdminDashbrd = () => {
+    const [data, setData] = useState([]);
+    useEffect(() => {
+      getAllUser();
+    }, []);
+  
+    const getAllUser = () => {
+      fetch("http://localhost:3005/getAllUser", {
+        method: "GET",
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data, "userData");
+          setData(data.data);
+        });
+    };
 
     const [getuserdata, setGetuserdata] = useState([]);
     console.log(getuserdata);
@@ -21,12 +38,7 @@ const AdminDashbrd = () => {
 
     const getdata = async () => {
 
-        const res = await fetch("http://localhost:3005/api/employeelist", {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json"
-            }
-        });
+        const res =  axios.get('http://localhost:3005/api/employeelist');
 
         const data = await res.json();
         console.log(data);
@@ -45,14 +57,10 @@ const AdminDashbrd = () => {
         getdata();
     }, [])
 
+    
     const deleteuser = async (id) => {
 
-        const res2 = await fetch(`http://localhost:3005/api/employeelist/${id}`, {
-            method: "DELETE",
-            headers: {
-                "Content-Type": "application/json"
-            }
-        });
+        const res2 =  axios.get(`http://localhost:3005/api/employeelist${id}`)
 
         const deletedata = await res2.json();
         console.log(deletedata);
@@ -149,4 +157,4 @@ const AdminDashbrd = () => {
     )
 }
 
-export default AdminDashbrd
+export default AdminDashbrd({ userData })

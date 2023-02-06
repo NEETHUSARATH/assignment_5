@@ -15,43 +15,61 @@ app.use(Bodyparser.urlencoded({extended:false}));
 mongoose.connect('mongodb+srv://NeeThuMongodb:16263646@cluster0.rviognq.mongodb.net/EmployeeDB?retryWrites=true&w=majority',{
     useNewUrlParser: true
 });
-//signin
-app.post("/login",(req,res)=>{
-    try{  
-       var userName=req.body.userName;
-       var password=req.body.password;
 
-       
-       let result=userModel.find({userName:userName},(err,data)=>{
-           if(data.length>0){
-               
-               const PasswordValidator=Bcrypt.compareSync(password,data[0].password)
-               if(PasswordValidator){
-                    jwt.sign({userName:userName,id:data[0]._id},"employeeApp",{expiresIn:"1d"},
-                    (err,token)=>{
-                       if (err) {
-                           res.json({"status":"error","error":err}) 
-                       } 
-                       else {
-                           res.json({"status":"success","data":data,"token":token})
-                           
-                       }
-                    })
-                   
-               }
-               else{
-                   res.json({"Status":"Failed to Login","data":"Invalid Password"})
-               }
-           }
-           else{
-               res.json({"Status":"Failed to Login","data":"Invalid user id"})
-           }
-       })
-   }catch(error){
-       console.log(error)
-   }
-   })
+const User = mongoose.model("UserInfo");
 
+//login
+app.post("/login", async (req, res) => {
+    const { email, password } = req.body;
+  
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.json({ error: "User Not found" });
+    }
+    if (await bcrypt.compare(password, user.password)) {
+      const token = jwt.sign({ email: user.email }, JWT_SECRET, {
+        expiresIn: "10s",
+      });
+  
+      if (res.status(201)) {
+        return res.json({ status: "ok", data: token });
+      } else {
+        return res.json({ error: "error" });
+      }
+    }
+    res.json({ status: "error", error: "InvAlid Password" });
+  });
+  
+  app.post("/userData", async (req, res) => {
+    const { token } = req.body;
+    try {
+      const user = jwt.verify(token, JWT_SECRET, (err, res) => {
+        if (err) {
+          return "token expired";
+        }
+        return res;
+      });
+      console.log(user);
+      if (user == "token expired") {
+        return res.send({ status: "error", data: "token expired" });
+      }
+  
+      const useremail = user.email;
+      User.findOne({ email: useremail })
+        .then((data) => {
+          res.send({ status: "ok", data: data });
+        })
+        .catch((error) => {
+          res.send({ status: "error", data: error });
+        });
+    } catch (error) {}
+  });
+
+
+
+
+
+  //employee CRUD
 app.post('/api/employeelist',(req,res)=>{
     var data=req.body;
     var employee=new employeeModel(data);

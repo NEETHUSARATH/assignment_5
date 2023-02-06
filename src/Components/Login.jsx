@@ -5,12 +5,12 @@ import { useNavigate } from 'react-router-dom'
 
 const Login = () => {
   const navigate= useNavigate();
-  const[userName,setuserName]=useState('');
+  const[email,setEmail]=useState('');
   const[password,setPassword]=useState();
 
   const userAuthentication =()=>{
     const userData={
-      "userName":userName,
+      "email":email,
       "password":password
     }
     console.log(userData)
@@ -26,7 +26,7 @@ const Login = () => {
         sessionStorage.setItem("userToken",token)
         sessionStorage.setItem("userId",userId)
 
-        navigate("/user")
+        navigate("./userDetails")
         
       }
       else{
@@ -37,60 +37,55 @@ const Login = () => {
 
 
   return (
-    <div>
-        <div className="container">
-          <div className="row">
-            <div className="col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-              <form>
-                <div class="form-outline mb-4">
-                  <h1>Login to your Account</h1>
-                  <input 
-                  type="userName" 
-                  id="form2Example1" 
-                  class="form-control" 
-                  placeholder='Username'
-                  onChange={(e)=>setuserName(e.target.value)}/>
-                  <label class="form-label" for="form2Example1">Username</label>
-                </div>
+    <div className="auth-wrapper">
+    <div className="auth-inner">
+      <form onSubmit={userAuthentication}>
+        <h3>Sign In</h3>
 
-                <div class="form-outline mb-4">
-                  <input 
-                  type="password" 
-                  id="form2Example2" 
-                  placeholder='Password'
-                  class="form-control" 
-                  onChange={(e)=>setPassword(e.target.value)}/>
+        <div className="mb-3">
+          <label>Email address</label>
+          <input
+            type="email"
+            className="form-control"
+            placeholder="Enter email"
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </div>
 
-                  <label class="form-label" for="form2Example2">Password</label>
-                </div>
+        <div className="mb-3">
+          <label>Password</label>
+          <input
+            type="password"
+            className="form-control"
+            placeholder="Enter password"
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
 
-                <div class="row mb-4">
-                  <div class="col d-flex justify-content-center">
-                    <div class="form-check">
-                      <input 
-                      class="form-check-input"
-                       type="checkbox" 
-                       value="" 
-                       id="form2Example31" checked />
-
-                      <label class="form-check-label" for="form2Example31"> Remember me </label>
-                    </div>
-                  </div>
-                </div>
-                <button 
-                type="submit" 
-                class="btn btn-primary btn-block mb-4"
-                onClick={userAuthentication}>
-                Sign in
-                </button>
-                <div class="text-center">
-                  <p>Not a member? <a href="#!">Register</a></p>
-                </div>
-              </form>
-            </div>
+        <div className="mb-3">
+          <div className="custom-control custom-checkbox">
+            <input
+              type="checkbox"
+              className="custom-control-input"
+              id="customCheck1"
+            />
+            <label className="custom-control-label" htmlFor="customCheck1">
+              Remember me
+            </label>
           </div>
         </div>
+
+        <div className="d-grid">
+          <button type="submit" className="btn btn-primary">
+            Submit
+          </button>
+        </div>
+        <p className="forgot-password text-right">
+          <a href="/sign-up">Sign Up</a>
+        </p>
+      </form>
     </div>
+  </div>
   )
 }
 

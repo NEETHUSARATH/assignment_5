@@ -28,15 +28,7 @@ const EmployeeForm = () => {
 
         const { name, designation,place,salary } = inputVal;
 
-        const res = await fetch("http://localhost:3005/api/employeelist", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                name, designation,place,salary
-            })
-        });
+        const res =  axios.get('http://localhost:3005/api/employeelist');
 
         const data = await res.json();
         console.log(data);
