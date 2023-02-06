@@ -3,12 +3,25 @@ let Mongoose = require("mongoose");
 
 const employeeSchema = Mongoose.Schema(
     {
-        
-        name: String,
-        designation:String,
-        salary:Number
-    }
-);
+        name: {
+            type: String,
+            required: true
+        },
+      
+        designation:{
+            type:String,
+            required: true
+        },
+
+        place:{
+            type:String,
+            required: true
+        },
+        salary:{
+            type:Number,
+            required: true
+        }
+    });
 
 let EmployeeModel = Mongoose.model("employees",employeeSchema);
 

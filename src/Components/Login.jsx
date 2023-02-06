@@ -14,7 +14,7 @@ const Login = () => {
       "password":password
     }
     console.log(userData)
-    axios.post(`http://localhost:3005/signin`,userData
+    axios.post(`http://localhost:3005/login`,userData
     
     ).then((response)=>{
       console.log(response.data)

@@ -6,7 +6,7 @@ const path=require('path');
 const { employeeModel } = require('./src/model/employee');
 const { userModel } = require('./src/model/user');
 var app=new express();
-app.use(express.static(path.join(__dirname+'/build')));
+app.use(express.static(path.join(__dirname+'/build','index.html')));
 app.use(Bodyparser.json());
 app.use(Bodyparser.urlencoded({extended:false}));
 
