@@ -14,8 +14,42 @@ app.use(Bodyparser.urlencoded({extended:false}));
 mongoose.connect('mongodb+srv://NeeThuMongodb:16263646@cluster0.rviognq.mongodb.net/EmployeeDB?retryWrites=true&w=majority',{
     useNewUrlParser: true
 });
+//signin
+app.post("/login",(req,res)=>{
+    try{  
+       var userName=req.body.userName;
+       var password=req.body.password;
 
-
+       
+       let result=UserModel.find({userName:userName},(err,data)=>{
+           if(data.length>0){
+               
+               const PasswordValidator=Bcrypt.compareSync(password,data[0].password)
+               if(PasswordValidator){
+                    jwt.sign({userName:userName,id:data[0]._id},"employeeApp",{expiresIn:"1d"},
+                    (err,token)=>{
+                       if (err) {
+                           res.json({"status":"error","error":err}) 
+                       } 
+                       else {
+                           res.json({"status":"success","data":data,"token":token})
+                           
+                       }
+                    })
+                   
+               }
+               else{
+                   res.json({"Status":"Failed to Login","data":"Invalid Password"})
+               }
+           }
+           else{
+               res.json({"Status":"Failed to Login","data":"Invalid user id"})
+           }
+       })
+   }catch(error){
+       console.log(error)
+   }
+   })
 
 app.post('/api/employeelist',(req,res)=>{
     var data=req.body;
@@ -119,4 +153,4 @@ app.get('/*', function (req, res) {
 });
 
 
-app.listen(3000);
+app.listen(3005);
