@@ -14,8 +14,9 @@ const Navbar = () => {
                         <li class="nav-item">
                          <a class="nav-link" href="/admin">Home</a>
                         </li>
+                       
                         <li class="nav-item">
-                            <a class="nav-link" href="/form">EmployeeForm</a>
+                            <a class="nav-link" href="/form">ViewEmployees</a>
                         </li>
                     </ul>
                 </div>

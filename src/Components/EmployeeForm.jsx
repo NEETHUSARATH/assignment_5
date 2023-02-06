@@ -4,7 +4,7 @@ import { adddata } from './context/context';
 import { NavLink, useNavigate } from 'react-router-dom';
 
 const EmployeeForm = () => {
-    const{employeeData,setemployeeData} =useContext(adddata);
+    const{userData,setUserData} =useContext(adddata);
     const navigate =useNavigate();
     const[inputVal,setinputVal] = useState({
         name:"",
@@ -47,7 +47,7 @@ const EmployeeForm = () => {
 
         } else {
             navigate.push("/admin")
-            setemployeeData(data)
+            setUserData(data)
             console.log("data added");
 
         }

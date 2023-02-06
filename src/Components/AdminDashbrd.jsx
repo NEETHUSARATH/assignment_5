@@ -1,76 +1,152 @@
 import { getDefaultNormalizer } from '@testing-library/react';
+import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
+import CreateIcon from '@mui/icons-material/Create';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import axios from 'axios';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState,useContext } from 'react'
 import Navbar from './Navbar'
+import { NavLink } from 'react-router-dom';
+import { adddata,deldata,updatedata} from './context/context';
 
 const AdminDashbrd = () => {
 
-    var [employeeData,setemployeeData] = useState([]);
-    useEffect(
-        ()=>{
-            getData();
-        },[]
-    )
-    const getData = ()=>{
-        axios.get('http://localhost:3005/api/employeelist')
-        .then(
-            (response)=>{
-                setemployeeData(response.data);
+    const [getuserdata, setGetuserdata] = useState([]);
+    console.log(getuserdata);
+
+    const { userdata, setUserdata } = useContext(adddata);
+
+    const {updata, setUPdata} = useContext(updatedata);
+
+    const {dltdata, setDLTdata} = useContext(deldata);
+
+    const getdata = async () => {
+
+        const res = await fetch("http://localhost:3005/api/employeelist", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
             }
-        )
-        .catch(
-            (error)=>{
-                console.log("Error while loading data"+error);
-            }
-        )
+        });
+
+        const data = await res.json();
+        console.log(data);
+
+        if (res.status === 422 || !data) {
+            console.log("error ");
+
+        } else {
+            setGetuserdata(data)
+            console.log("get data");
+
+        }
     }
 
-  return (
-    <div>
-      <div className="container" style={{marginTop: "30px"}}>
-        <Navbar/>
-        <div className="row g-3">
-            <div className="col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">ID</th>
-                            <th scope="col">NAME</th>
-                            <th scope="col">DESIGNATION</th>
-                            <th scope="col">SALARY</th>
-                            <th scope='col'>Edit/Delete</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {employeeData.map(
-                            (value,index)=>{
-                             return <tr>
-                                <td>{value.id}</td>
-                                <td >{value.name}</td>
-                                <td >{value.designation}</td>
-                                <td >{value.salary}</td>
+    useEffect(() => {
+        getdata();
+    }, [])
 
-                                <button 
-                                className="btn" 
-                                style={{backgroundColor: "#5D6D7E ", marginRight:"3px",marginTop:"3px"}}>
-                                Edit
-                                </button>
-                                <button 
-                                className="btn" 
-                                style={{backgroundColor: "#5D6D7E ", 
-                                marginLeft:"3px",marginBottom:"3px"}}>
-                                Delete
-                                </button>
-                            </tr> 
+    const deleteuser = async (id) => {
+
+        const res2 = await fetch(`http://localhost:3005/api/employeelist/${id}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
+
+        const deletedata = await res2.json();
+        console.log(deletedata);
+
+        if (res2.status === 422 || !deletedata) {
+            console.log("error");
+        } else {
+            console.log("user deleted");
+            setDLTdata(deletedata)
+            getdata();
+        }
+
+    }
+
+
+    return (
+
+        <>
+            {
+                userdata ?
+                    <>
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <strong>{userdata.name}</strong>  added succesfully!
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    </> : ""
+            }
+            {
+                updata ?
+                    <>
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <strong>{updata.name}</strong>  updated succesfully!
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    </> : ""
+            }
+
+            {
+                dltdata ?
+                    <>
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>{dltdata.name}</strong>  deleted succesfully!
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    </> : ""
+            }
+
+
+            <div className="mt-5">
+                <div className="container">
+                    <div className="add_btn mt-2 mb-2">
+                        <NavLink to="/form" className="btn btn-primary">Add data</NavLink>
+                    </div>
+
+                    <table class="table">
+                        <thead>
+                            <tr className="table-dark">
+                                <th scope="col">NAME</th>
+                                <th scope="col">DESIGNATION</th>
+                                <th scope="col">PLACE</th>
+                                <th scope="col">SALARY</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            {
+                                getuserdata.map((element, id) => {
+                                    return (
+                                        <>
+                                            <tr>
+                                                <th scope="row">{id + 1}</th>
+                                                <td>{element.name}</td>
+                                                <td>{element.designation}</td>
+                                                <td>{element.place}</td>
+                                                <td>{element.salary}</td>
+                                                <td className="d-flex justify-content-between">
+                                                    <NavLink to={`view/${element._id}`}> <button className="btn btn-success"><RemoveRedEyeIcon /></button></NavLink>
+                                                    <NavLink to={`edit/${element._id}`}>  <button className="btn btn-primary"><CreateIcon /></button></NavLink>
+                                                    <button className="btn btn-danger" onClick={() => deleteuser(element._id)}><DeleteOutlineIcon /></button>
+                                                </td>
+                                            </tr>
+                                        </>
+                                    )
+                                })
                             }
-                        )}
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
+
+
+                </div>
             </div>
-        </div>
-      </div>
-    </div>
-  )
+        </>
+    )
 }
 
 export default AdminDashbrd

@@ -7,13 +7,13 @@ export const deldata = createContext("");
 
 const ContextProvider = ({ children }) => {
 
-    const [udata, setUdata] = useState("");
+    const [userdata, setUserdata] = useState("");
     const [updata, setUPdata] = useState("");
     const [dltdata, setDLTdata] = useState("");
 
 
     return (
-        <adddata.Provider value={{ udata, setUdata }}>
+        <adddata.Provider value={{ userdata, setUserdata }}>
             <updatedata.Provider value={{ updata, setUPdata }}>
                 <deldata.Provider value={{dltdata, setDLTdata}}>
                     {children}
