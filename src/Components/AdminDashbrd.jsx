@@ -12,7 +12,7 @@ const AdminDashbrd = () => {
         },[]
     )
     const getData = ()=>{
-        axios.get('https://jsonplaceholder.typicode.com/users')
+        axios.get('http://localhost:3005/api/employeelist')
         .then(
             (response)=>{
                 setemployeeData(response.data);
