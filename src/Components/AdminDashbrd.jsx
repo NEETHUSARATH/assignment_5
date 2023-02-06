@@ -37,6 +37,7 @@ const AdminDashbrd = () => {
                             <th scope="col">ID</th>
                             <th scope="col">NAME</th>
                             <th scope="col">DESIGNATION</th>
+                            <th scope="col">SALARY</th>
                             <th scope='col'>Edit/Delete</th>
                         </tr>
                     </thead>
@@ -47,8 +48,19 @@ const AdminDashbrd = () => {
                                 <td>{value.id}</td>
                                 <td >{value.name}</td>
                                 <td >{value.designation}</td>
-                                <button className="btn" style={{backgroundColor: "#5D6D7E ", marginRight:"3px",marginTop:"3px"}}>Edit</button>
-                                <button className="btn" style={{backgroundColor: "#5D6D7E ", marginLeft:"3px",marginBottom:"3px"}}>Delete</button>
+                                <td >{value.salary}</td>
+
+                                <button 
+                                className="btn" 
+                                style={{backgroundColor: "#5D6D7E ", marginRight:"3px",marginTop:"3px"}}>
+                                Edit
+                                </button>
+                                <button 
+                                className="btn" 
+                                style={{backgroundColor: "#5D6D7E ", 
+                                marginLeft:"3px",marginBottom:"3px"}}>
+                                Delete
+                                </button>
                             </tr> 
                             }
                         )}

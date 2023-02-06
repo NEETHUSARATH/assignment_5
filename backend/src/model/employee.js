@@ -3,6 +3,7 @@ let Mongoose = require("mongoose");
 
 const employeeSchema = Mongoose.Schema(
     {
+        
         name: String,
         designation:String,
         salary:Number
