@@ -4,6 +4,7 @@ const mongoose=require('mongoose');
 const cors=require('cors');
 const path=require('path');
 const { employeeModel } = require('./src/model/employee');
+const { userModel } = require('./src/model/user');
 var app=new express();
 app.use(express.static(path.join(__dirname+'/build')));
 app.use(Bodyparser.json());
@@ -21,7 +22,7 @@ app.post("/login",(req,res)=>{
        var password=req.body.password;
 
        
-       let result=UserModel.find({userName:userName},(err,data)=>{
+       let result=userModel.find({userName:userName},(err,data)=>{
            if(data.length>0){
                
                const PasswordValidator=Bcrypt.compareSync(password,data[0].password)
